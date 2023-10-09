@@ -25,10 +25,11 @@ class HomeController extends Controller
 
 // ...
 
-public function index()
-{
+public function index() {
     $empleos = Empleo::all();
-    return view('home', ['empleos' => $empleos]);
+    return view('home', compact('empleos'));
 }
+
+
 
 }

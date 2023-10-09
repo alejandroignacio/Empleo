@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
+
+
 class User extends Authenticatable
 {
+    use Notifiable;
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -18,10 +21,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'user_type' // Asegúrate de que esta línea esté aquí
+        'name', 'email', 'password', 'user_type', 'full_name',
+        'phone', 'gender', 'skills', 'is_student', 'study_field', 'edad'
     ];
     
     
@@ -45,4 +46,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function empleos()
+{
+    return $this->hasMany(Empleo::class);
+}
+public function empleosAplicados()
+{
+    return $this->belongsToMany(Empleo::class, 'nombre_tabla_pivot');
+}
+
+
+    
+    
 }

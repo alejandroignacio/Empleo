@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-   
-
     use RegistersUsers;
 
     /**
@@ -39,15 +37,14 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-{
-    return Validator::make($data, [
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        'password' => ['required', 'string', 'min:8', 'confirmed'],
-        'user_type' => ['required', 'in:empleador,postulante'],  // Esto lo añades
-    ]);
-}
-
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'user_type' => ['required', 'string', 'in:empleador,postulante'], 
+        ]);
+    }
 
     /**
      * Create a new user instance after a valid registration.
@@ -55,16 +52,13 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-   
-     protected function create(array $data)
-     {
-         return User::create([
-             'name' => $data['name'],
-             'email' => $data['email'],
-             'password' => Hash::make($data['password']),
-             'user_type' => $data['user_type'],  // Añadir esta línea
-         ]);
-     }
-     
-
+    protected function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'user_type' => $data['user_type'],
+        ]);
+    }
 }

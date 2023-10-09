@@ -7,6 +7,11 @@
         @foreach($empleos as $empleo)
             <li><a href="{{ route('empleos.show', $empleo->id) }}">{{ $empleo->titulo }}</a></li>
         @endforeach
+        
     </ul>
+    @foreach($jobs as $job)
+    <a href="{{ route('job.details', $job->id) }}">{{ $job->title }}</a><br>
+@endforeach
+
 </div>
 @endsection

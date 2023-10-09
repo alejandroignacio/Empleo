@@ -11,17 +11,23 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::table('users', function (Blueprint $table) {
-        $table->string('user_type')->after('password')->default('postulante'); // Se establece 'postulante' como valor predeterminado.
-    });
+    if (!Schema::hasColumn('users', 'user_type')) {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('user_type', 50)
+                  ->after('password')
+                  ->default('postulante')
+                  ->comment('Tipo de usuario: empleador o postulante');
+        });
+    }
 }
 
-public function down()
-{
-    Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn('user_type');
-    });
-}
 
-    
+    public function down()
+    {
+        if (Schema::hasColumn('users', 'user_type')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('user_type');
+            });
+        }
+    }
 };
