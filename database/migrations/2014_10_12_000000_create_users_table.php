@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('user_type', ['empleador', 'postulante'])->default('postulante');
             $table->rememberToken();
             $table->timestamps();
+            
         });
     }
 
